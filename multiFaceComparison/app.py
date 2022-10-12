@@ -36,18 +36,18 @@ def compare_faces2():
 
 
     response = []
-    # start = time.time()
-    # distance, result = compareFace.main(target, face)
-    # distance = float(distance)
-    # end = time.time()
-    # json_contect = {
-    #     'result': str(result),
-    #     'distance': round(distance, 2),
-    #     'time_taken': round(end - start, 3),
-    # }
+    start = time.time()
+    distance, result = compareFace2.main(source_img_data, target_img_data)
+    distance = float(distance)
+    end = time.time()
+    json_contect = {
+        'result': str(result),
+        'distance': round(distance, 2),
+        'time_taken': round(end - start, 3),
+    }
 
 
-    # response.append(json_contect)
+    response.append(json_contect)
     python2json = json.dumps(response)
     return app.response_class(python2json, content_type='application/json')
 
