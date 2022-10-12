@@ -9,9 +9,46 @@ import sys
 import compareFace
 import time
 import detectFace
+import json
+import re
+import base64
+from io import BytesIO
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
+
+
+def convert2Image(base64_str):
+    base64_data = re.sub('^data:image/.+;base64,', '', base64_str)
+    byte_data = base64.b64decode(base64_data)
+    image_data = BytesIO(byte_data)
+    return image_data
+
+
+@app.route('/api/v1/compare2', methods=['POST'])
+def compare_faces2():
+    source_img_str = request.get_json()['source']
+    target_img_str = request.get_json()['target']
+
+    source_img_data = convert2Image(source_img_str)
+    target_img_data = convert2Image(target_img_str)
+
+
+    response = []
+    # start = time.time()
+    # distance, result = compareFace.main(target, face)
+    # distance = float(distance)
+    # end = time.time()
+    # json_contect = {
+    #     'result': str(result),
+    #     'distance': round(distance, 2),
+    #     'time_taken': round(end - start, 3),
+    # }
+
+
+    # response.append(json_contect)
+    python2json = json.dumps(response)
+    return app.response_class(python2json, content_type='application/json')
 
 
 @app.route('/api/v1/compare', methods=['POST'])
