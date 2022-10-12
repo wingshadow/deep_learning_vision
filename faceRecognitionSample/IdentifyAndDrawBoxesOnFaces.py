@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import face_recognition
 from PIL import Image, ImageDraw
 import numpy as np
-
+# 人脸验证并在人脸下面填写名称
 # 加载第一张示例图片并提取特征
 obama_image = face_recognition.load_image_file("image/obama.jpg")
 obama_face_encoding = face_recognition.face_encodings(obama_image)[0]
