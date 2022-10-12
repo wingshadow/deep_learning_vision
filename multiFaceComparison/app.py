@@ -9,6 +9,7 @@ import sys
 import compareFace
 import time
 import detectFace
+import compareFace2
 import json
 import re
 import base64
