@@ -17,12 +17,13 @@ def scanKnownPeople(knownPeopleImage):
         known_face_encodings.append(encodings[0])
     return known_face_encodings
 
-
+# 余弦定理
 def sim(source_encoding,target_encoding):
     source_np = np.array(source_encoding)
     target_np = np.array(target_encoding)
-    cos_sim = source_np.dot(target_np) / (np.linalg.norm(source_np) * np.linalg.norm(target_np))
-    return cos_sim
+    dist = np.linalg.norm(source_np - target_np)  # 二范数
+    sim = 1.0 / (1.0 + dist)  #
+    return sim
 
 def checkImage(image_to_check, known_face_encodings):
     unknown_image = face_recognition.load_image_file(image_to_check)
@@ -38,8 +39,8 @@ def checkImage(image_to_check, known_face_encodings):
         for unknown_encoding in unknown_encodings:
             result = face_recognition.compare_faces(known_face_encodings, unknown_encoding)
             distance = face_recognition.face_distance(known_face_encodings, unknown_encoding)
-            # sim_result = sim(known_face_encodings,unknown_encoding)
-            # print(sim_result)
+            sim_result = sim(known_face_encodings,unknown_encoding)
+            print(sim_result)
             # print(distance[0])
             # print("True") if True in result else print("False ")
 
