@@ -10,6 +10,7 @@ from werkzeug.utils import secure_filename
 import compareFace
 import compareFace2
 import detectFace
+import gunicorn
 
 app = Flask(__name__)
 
