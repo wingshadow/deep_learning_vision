@@ -5,6 +5,7 @@ import scipy.misc
 import warnings
 import face_recognition.api as face_recognition
 import sys
+import numpy as np
 
 
 def scanKnownPeople(knownPeopleImage):
@@ -17,7 +18,13 @@ def scanKnownPeople(knownPeopleImage):
     return known_face_encodings
 
 
-def checkImage(image_to_check, known_names, known_face_encodings):
+def sim(source_encoding,target_encoding):
+    source_np = np.array(source_encoding)
+    target_np = np.array(target_encoding)
+    cos_sim = source_np.dot(target_np) / (np.linalg.norm(source_np) * np.linalg.norm(target_np))
+    return cos_sim
+
+def checkImage(image_to_check, known_face_encodings):
     unknown_image = face_recognition.load_image_file(image_to_check)
     # Scale down image if it's giant so things run a little faster
     if unknown_image.shape[1] > 1600:
@@ -31,6 +38,8 @@ def checkImage(image_to_check, known_names, known_face_encodings):
         for unknown_encoding in unknown_encodings:
             result = face_recognition.compare_faces(known_face_encodings, unknown_encoding)
             distance = face_recognition.face_distance(known_face_encodings, unknown_encoding)
+            # sim_result = sim(known_face_encodings,unknown_encoding)
+            # print(sim_result)
             # print(distance[0])
             # print("True") if True in result else print("False ")
 
@@ -44,8 +53,8 @@ def image_files_in_folder(folder):
 
 
 def main(known_people_folder, image_to_check):
-    known_names, known_face_encodings = scanKnownPeople(known_people_folder)
-    distance, result = checkImage(image_to_check, known_names, known_face_encodings)
+    known_face_encodings = scanKnownPeople(known_people_folder)
+    distance, result = checkImage(image_to_check, known_face_encodings)
     return distance, result
 
 

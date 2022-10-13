@@ -1,20 +1,15 @@
-from flask import Flask, render_template, request, send_from_directory, Response
-from flask import jsonify
-import json
-import re
-import os
-import scipy.misc
-import warnings
-import sys
-import compareFace
-import time
-import detectFace
-import compareFace2
-import json
-import re
 import base64
+import json
+import re
+import time
 from io import BytesIO
+
+from flask import Flask, request
 from werkzeug.utils import secure_filename
+
+import compareFace
+import compareFace2
+import detectFace
 
 app = Flask(__name__)
 
@@ -34,7 +29,6 @@ def compare_faces2():
     source_img_data = convert2Image(source_img_str)
     target_img_data = convert2Image(target_img_str)
 
-
     response = []
     start = time.time()
     distance, result = compareFace2.main(source_img_data, target_img_data)
@@ -45,8 +39,6 @@ def compare_faces2():
         'distance': round(distance, 2),
         'time_taken': round(end - start, 3),
     }
-
-
     response.append(json_contect)
     python2json = json.dumps(response)
     return app.response_class(python2json, content_type='application/json')
