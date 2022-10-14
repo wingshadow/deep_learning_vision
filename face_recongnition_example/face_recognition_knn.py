@@ -84,7 +84,8 @@ def train(train_dir, model_save_path=None, n_neighbors=None, knn_algo='ball_tree
             if len(face_bounding_boxes) != 1:
                 # If there are no people (or too many people) in a training image, skip the image.
                 if verbose:
-                    print("Image {} not suitable for training: {}".format(img_path, "Didn't find a face" if len(face_bounding_boxes) < 1 else "Found more than one face"))
+                    print("Image {} not suitable for training: {}".format(img_path, "Didn't find a face" if len(
+                        face_bounding_boxes) < 1 else "Found more than one face"))
             else:
                 # Add face encoding for current image to the training set
                 X.append(face_recognition.face_encodings(image, known_face_locations=face_bounding_boxes)[0])
@@ -145,9 +146,11 @@ def predict(X_img_path, knn_clf=None, model_path=None, distance_threshold=0.6):
     # Use the KNN model to find the best matches for the test face
     closest_distances = knn_clf.kneighbors(faces_encodings, n_neighbors=1)
     are_matches = [closest_distances[0][i][0] <= distance_threshold for i in range(len(X_face_locations))]
+    print("are_mathches:{}".format(are_matches))
 
     # Predict classes and remove classifications that aren't within the threshold
-    return [(pred, loc) if rec else ("unknown", loc) for pred, loc, rec in zip(knn_clf.predict(faces_encodings), X_face_locations, are_matches)]
+    return [(pred, loc) if rec else ("unknown", loc) for pred, loc, rec in
+            zip(knn_clf.predict(faces_encodings), X_face_locations, are_matches)]
 
 
 def show_prediction_labels_on_image(img_path, predictions):
