@@ -153,7 +153,7 @@ if __name__ == "__main__":
     # 训练图片下载地址：https://github.com/ageitgey/face_recognition/tree/master/examples/knn_examples
     # STEP 1 训练KNN分类器
     print("Training KNN classifier...")
-    classifier = train("knn_examples/train", model_save_path="trained_knn_model.clf", n_neighbors=2)
+    classifier = train("knn_examples/train", model_save_path="knn_examples/trained_knn_model.clf", n_neighbors=2)
     print("Training complete!")
 
     # STEP 2 使用训练好的KNN分类器对测试的人脸图像进行识别
@@ -164,7 +164,7 @@ if __name__ == "__main__":
         print("Looking for faces in {}".format(image_file))
 
         # 用经过训练的分类器模型查找图像中的所有人
-        predictions = predict(full_file_path, model_path="trained_knn_model.clf")
+        predictions = predict(full_file_path, model_path="knn_examples/trained_knn_model.clf")
 
         # 打印结果
         for name, (top, right, bottom, left) in predictions:
