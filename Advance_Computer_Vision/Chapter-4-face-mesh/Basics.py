@@ -2,6 +2,8 @@ import cv2
 import mediapipe as mp
 import time
 
+# 捕捉人脸网面
+
 cap = cv2.VideoCapture("Videos/6.mp4")
 pTime = 0
 
