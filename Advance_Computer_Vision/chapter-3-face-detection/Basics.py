@@ -39,4 +39,8 @@ while True:
     cv2.putText(img, f'FPS: {int(fps)}', (20, 70), cv2.FONT_HERSHEY_PLAIN,
                 3, (0, 255, 0), 2)
     cv2.imshow("video", img)
-    cv2.waitKey(1)
+    k = cv2.waitKey(1)
+    if k == ord("q"):
+        break
+cap.release()
+cv2.destroyAllWindows()
