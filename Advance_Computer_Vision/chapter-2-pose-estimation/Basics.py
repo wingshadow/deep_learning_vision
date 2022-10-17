@@ -4,6 +4,7 @@ import time
 
 # 捕捉人体姿势
 mpDraw = mp.solutions.drawing_utils
+# google mediapipe 人体姿态模型
 mpPose = mp.solutions.pose
 pose = mpPose.Pose()
 

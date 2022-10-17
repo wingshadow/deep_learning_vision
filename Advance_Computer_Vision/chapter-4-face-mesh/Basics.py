@@ -8,6 +8,8 @@ cap = cv2.VideoCapture("Videos/6.mp4")
 pTime = 0
 
 mpDraw = mp.solutions.drawing_utils
+
+# google mediapipe 人脸网状模型
 mpFaceMesh = mp.solutions.face_mesh
 faceMesh = mpFaceMesh.FaceMesh(max_num_faces=2)
 drawSpec = mpDraw.DrawingSpec(thickness=1, circle_radius=2)

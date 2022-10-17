@@ -2,13 +2,12 @@ import cv2
 import mediapipe as mp
 import time
 
-
 cv2.namedWindow('video', cv2.WINDOW_NORMAL)
 cv2.resizeWindow('video', 1920, 1080)
 
 cap = cv2.VideoCapture("Videos/1.mp4")
 pTime = 0
-
+# google mediapipe 人脸提取模型
 mpFaceDetection = mp.solutions.face_detection
 mpDraw = mp.solutions.drawing_utils
 faceDetection = mpFaceDetection.FaceDetection(0.5)

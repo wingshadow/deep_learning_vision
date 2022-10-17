@@ -15,6 +15,7 @@ class handDetector():
         self.maxHands = maxHands
         self.detectionCon = detectionCon
         self.trackCon = trackCon
+        # google mediapipe 手部模型
         self.mpHands = mp.solutions.hands
         self.hands = self.mpHands.Hands(self.mode, self.maxHands, 1,
                                         self.detectionCon, self.trackCon)
