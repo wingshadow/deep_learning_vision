@@ -55,6 +55,7 @@ def main():
         success, img = cap.read()
         img = detector.findHands(img)
         lmList = detector.findPosition(img)
+        print(lmList)
         if len(lmList) != 0:
             print(lmList[4])
         cTime = time.time()
