@@ -48,6 +48,7 @@ while True:
 
             # Find Dist btw index & thumb
             ## Fings Distance Range 25 - 205
+            # 4-拇指指尖 8-食指指尖
             len_line, img, line_info = detector.findDistance(4, 8, img)
 
             # Convert Vol
@@ -59,10 +60,11 @@ while True:
             vol_perc = smoothness * round(vol_perc / smoothness)
 
             # Check fingers up
+            # 举起手指
             fingers = detector.fingersUp()
             # print(fingers)
 
-            # If pinky is down set volume
+            # If pinky is down set volume 如果小指向下设置音量
             if not fingers[4]:
                 volume.SetMasterVolumeLevelScalar(vol_perc / 100, None)
                 cv2.circle(img, (line_info[4], line_info[5]), 5, (255, 255, 0), cv2.FILLED)
@@ -70,7 +72,7 @@ while True:
             else:
                 vol_color = (135, 0, 255)
 
-            # Min - Max Vol Button Color
+            # Min - Max Vol Button Color 最小 最大 音量按钮颜色设置
             if len_line < min_dist:
                 cv2.circle(img, (line_info[4], line_info[5]), 5, (0, 0, 255), cv2.FILLED)
             elif len_line > max_dist:
