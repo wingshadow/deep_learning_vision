@@ -18,14 +18,23 @@ while True:
     ret, frame = video_capture.read()
 
     # Resize frame of video to 1/4 size for faster face detection processing
+    # 将视频帧大小调整为 1/4 大小以加快人脸检测处理
+    # InputArray src ：输入，原图像，即待改变大小的图像；
+    # OutputArray dst： 输出，改变后的图像。这个图像和原图像具有相同的内容，只是大小和原图像不一样而已；
+    # dsize：输出图像的大小，如上面例子（300，300）。
+    #
+    # 其中，fx和fy就是下面要说的两个参数，是图像width方向和height方向的缩放比例。
+    # fx：width方向的缩放比例
+    # fy：height方向的缩放比例
     small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
 
     # Find all the faces and face encodings in the current frame of video
-    face_locations = face_recognition.face_locations(small_frame, model="cnn")
+    face_locations = face_recognition.face_locations(small_frame, model="hog")
 
     # Display the results
     for top, right, bottom, left in face_locations:
         # Scale back up face locations since the frame we detected in was scaled to 1/4 size
+        # 由于我们检测到的帧被缩放到 1/4 大小，因此放大了人脸位置
         top *= 4
         right *= 4
         bottom *= 4
