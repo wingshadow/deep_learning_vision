@@ -26,27 +26,43 @@ while True:
     # 其中，fx和fy就是下面要说的两个参数，是图像width方向和height方向的缩放比例。
     # fx：width方向的缩放比例
     # fy：height方向的缩放比例
+    # 将视频帧的大小调整为1/4以加快面部检测处理
     small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
 
+    """
+        face_locations(img, number_of_times_to_upsample=1, model='hog') 
+            给定一个图像，返回图像中每个人脸的面部特征位置(眼睛、鼻子等) 
+            参数： 
+                img：一个image（numpy array类型） 
+                number_of_times_to_upsample：从images的样本中查找多少次人脸，该参数值越高的话越能发现更小的人脸。 
+                model：使用哪种人脸检测模型。
+                    “hog” 准确率不高，但是在CPUs上运行更快，“cnn” 更准确更深度（且 GPU/CUDA加速，如果有GPU支持的话），默认是“hog” 
+                返回值： 一个元组列表，列表中的每个元组包含人脸的位置(top, right, bottom, left)
+        """
     # Find all the faces and face encodings in the current frame of video
+    # 查找当前视频帧中的所有面部位置和面部位置编码
     face_locations = face_recognition.face_locations(small_frame, model="hog")
 
     # Display the results
     for top, right, bottom, left in face_locations:
         # Scale back up face locations since the frame we detected in was scaled to 1/4 size
         # 由于我们检测到的帧被缩放到 1/4 大小，因此放大了人脸位置
+        # 由于我们在中检测到的帧被缩放到1/4大小，因此此处需要对检测出来的人脸位置(top, right, bottom, left)重新放大4倍
         top *= 4
         right *= 4
         bottom *= 4
         left *= 4
 
         # Extract the region of the image that contains the face
+        # 根据放大4倍后还原到原图规模的人脸位置(top, right, bottom, left)到视频原始帧中 进行提取包含人脸的图像区域
         face_image = frame[top:bottom, left:right]
 
         # Blur the face image
+        # 使用高斯模糊来模糊面部图像
         face_image = cv2.GaussianBlur(face_image, (99, 99), 30)
 
         # Put the blurred face region back into the frame image
+        # 将模糊的人脸区域放回帧图像中
         frame[top:bottom, left:right] = face_image
 
     # Display the resulting image
