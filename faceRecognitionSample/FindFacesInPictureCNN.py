@@ -4,7 +4,7 @@ from PIL import Image
 import face_recognition
 # 通过CNN神经网络卷积查找定位人脸
 # 通过PIL加载图片
-image = face_recognition.load_image_file("image/obama.jpg")
+image = face_recognition.load_image_file("image/o.jpg")
 # 基于cnn识别人脸,是否使用gpu看装机环境
 face_locations = face_recognition.face_locations(image, number_of_times_to_upsample=0, model="cnn")
 

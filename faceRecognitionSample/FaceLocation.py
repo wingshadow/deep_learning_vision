@@ -4,7 +4,7 @@ from PIL import Image
 import face_recognition
 # 找到或定位人脸
 # 通过PIL加载图片
-image = face_recognition.load_image_file("image/obama.jpg")
+image = face_recognition.load_image_file("image/o.jpg")
 # 基于hog机器学习模型进行人脸识别，不能使用gpu加速
 face_locations = face_recognition.face_locations(image)
 
