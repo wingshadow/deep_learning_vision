@@ -21,8 +21,13 @@ img = Image.open("image/o.jpg")
 # image_data = BytesIO(byte_data)
 
 image = face_recognition.load_image_file("image/o.jpg")
+# 图片高度.宽度,维度
+height, width, dim = image.shape
+scale_factor = 1600.0 / image.shape[1]
+width = int(width * scale_factor)
+height = int(height * scale_factor)
 if image.shape[1] > 1600:
-    resize_img = img.resize((200, 260), Image.LANCZOS)
+    resize_img = img.resize((width, height), Image.BILINEAR)
     buffered = BytesIO()
     resize_img.save(buffered, format="JPEG")
     image = face_recognition.load_image_file(buffered)
