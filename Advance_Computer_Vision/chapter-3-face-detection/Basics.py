@@ -34,7 +34,7 @@ while True:
             bboxC = detection.location_data.relative_bounding_box
             ih, iw, ic = img.shape
 
-            # 将边界框的坐标点从比例坐标转换成像素坐标
+            # 将边界框的比例坐标点从比例坐标转换成像素坐标
             # 将边界框的宽和高从比例长度转换为像素长度
             bbox = int(bboxC.xmin * iw), int(bboxC.ymin * ih), int(bboxC.width * iw), int(bboxC.height * ih)
             cv2.rectangle(img, bbox, (255, 0, 255), 2)
