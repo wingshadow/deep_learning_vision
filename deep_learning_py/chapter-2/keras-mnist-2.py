@@ -1,3 +1,5 @@
+# 密接连接神经网络
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -18,6 +20,7 @@ from tensorflow.keras import layers
 
 network = models.Sequential()
 # relu(x) 是 max(x, 0)
+# Dense 密接连接
 network.add(layers.Dense(512, activation='relu', input_shape=(28 * 28,)))
 # 10 路 softmax 层，它将返回一个由 10 个概率值（总和为 1）组成的数组
 network.add(layers.Dense(10, activation='softmax'))
