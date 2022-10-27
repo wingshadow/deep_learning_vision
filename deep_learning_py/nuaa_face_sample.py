@@ -3,12 +3,12 @@ import os
 
 import cv2
 import pandas as pd
-from tensorflow.python.keras import callbacks
-from tensorflow.python.keras.layers import Conv2D, MaxPooling2D, Dense, Flatten
-from tensorflow.python.keras.losses import categorical_crossentropy
-from tensorflow.python.keras.models import Sequential
-from tensorflow.python.keras.preprocessing.image import ImageDataGenerator
-from tensorflow.python.keras.optimizer_v2.adam import Adam
+from tensorflow.keras import callbacks
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Flatten
+from tensorflow.keras.losses import categorical_crossentropy
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.optimizers import Adam
 
 
 def read_train_file():
